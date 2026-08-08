@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://vpl8m78bqypr" path="res://streamer/streamer.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://1dclcvtg42ds" path="res://interaction/cursor.tscn" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://bryu8qkm7axkb" path="res://core/disaster_manager.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dcnyuwdtxd527" path="res://ui/hud.tscn" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://0f00w5kmjxdr" path="res://disasters/test/debug_disaster.tscn" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1163711609]
 
@@ -13,17 +15,26 @@
 [node name="DisasterSlots" type="Node2D" parent="World" unique_id=1883525458]
 
 [node name="Slot1" type="Marker2D" parent="World/DisasterSlots" unique_id=2015957544]
+position = Vector2(139, 130)
 
 [node name="Slot2" type="Marker2D" parent="World/DisasterSlots" unique_id=1150801156]
+position = Vector2(824, 139)
 
 [node name="Slot3" type="Marker2D" parent="World/DisasterSlots" unique_id=1962958607]
+position = Vector2(141, 401)
 
 [node name="Slot4" type="Marker2D" parent="World/DisasterSlots" unique_id=2070310927]
+position = Vector2(829, 426)
 
 [node name="Streamer" parent="World" unique_id=1335025303 instance=ExtResource("1_h2yge")]
 
 [node name="InteractionLayer" type="Node2D" parent="World" unique_id=1935478923]
 
 [node name="Cursor" parent="World/InteractionLayer" unique_id=1295067729 instance=ExtResource("2_1bvp3")]
+
+[node name="DisasterManager" type="Node" parent="World" unique_id=1341616187 node_paths=PackedStringArray("slots_container")]
+script = ExtResource("3_1bvp3")
+slots_container = NodePath("../DisasterSlots")
+disaster_scenes = Array[PackedScene]([ExtResource("4_lquwl")])
 
 [node name="HUD" parent="." unique_id=214913986 instance=ExtResource("3_lquwl")]
