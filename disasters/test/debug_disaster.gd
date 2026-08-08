@@ -9,9 +9,18 @@ func _on_activate() -> void:
 func _on_resolve() -> void:
 	modulate = Color.LIME_GREEN
 	print("[DebugDisaster] resuelto")
-	queue_free()
+	_fade_out()
 
 func _on_fail() -> void:
 	modulate = Color.DIM_GRAY
 	print("[DebugDisaster] FALLÓ")
-	queue_free()
+	_fade_out()
+
+
+## Espera para que se vea el color, se desvanece y recién ahí se libera.
+## En los desastres reales, acá va la animación de cierre.
+func _fade_out() -> void:
+	var tween := create_tween()
+	tween.tween_interval(0.4)
+	tween.tween_property(self, "modulate:a", 0.0, 0.2)
+	tween.tween_callback(queue_free)

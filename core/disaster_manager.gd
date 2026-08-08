@@ -55,6 +55,43 @@ func _get_free_slot() -> Marker2D:
 	return free_slots.pick_random()
 
 
+## Devuelve todos los desastres activos en escena.
+func get_active_disasters() -> Array[Disaster]:
+	var active: Array[Disaster] = []
+	for slot in _slots:
+		for child in slot.get_children():
+			if child is Disaster and child.is_active:
+				active.append(child)
+	return active
+
+
+## Resuelve el desastre más viejo (el que está más cerca de fallar).
+func resolve_oldest_disaster() -> void:
+	var active := get_active_disasters()
+	if active.is_empty():
+		print("[DisasterManager] No hay desastres activos.")
+		return
+
+	var oldest: Disaster = active[0]
+	for disaster in active:
+		if disaster.get_progress() > oldest.get_progress():
+			oldest = disaster
+
+	oldest.resolve()
+
+
+## Borra todos los desastres de la escena, sin emitir señales.
+func clear_all() -> void:
+	for slot in _slots:
+		for child in slot.get_children():
+			child.queue_free()
+	print("[DisasterManager] Escena limpiada.")
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_spawn_disaster"):
 		spawn_disaster()
+	elif event.is_action_pressed("debug_resolve_disaster"):
+		resolve_oldest_disaster()
+	elif event.is_action_pressed("debug_reset"):
+		clear_all()
