@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bryu8qkm7axkb" path="res://core/disaster_manager.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dcnyuwdtxd527" path="res://ui/hud.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://0f00w5kmjxdr" path="res://disasters/test/debug_disaster.tscn" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://bopserk65r2xq" path="res://core/suspicion_system.gd" id="5_7mycd"]
 
 [node name="Main" type="Node2D" unique_id=1163711609]
 
@@ -36,5 +37,8 @@ position = Vector2(829, 426)
 script = ExtResource("3_1bvp3")
 slots_container = NodePath("../DisasterSlots")
 disaster_scenes = Array[PackedScene]([ExtResource("4_lquwl")])
+
+[node name="SuspicionSystem" type="Node" parent="World" unique_id=876637704]
+script = ExtResource("5_7mycd")
 
 [node name="HUD" parent="." unique_id=214913986 instance=ExtResource("3_lquwl")]
