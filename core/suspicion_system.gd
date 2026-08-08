@@ -69,5 +69,6 @@ func _on_disaster_resolved(_disaster) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_add_suspicion"):
-		_set_suspicion(suspicion + debug_increment)
-		print("[SuspicionSystem] Debug. Sospecha: %.2f" % suspicion)
+		var target := clampf(suspicion + debug_increment, 0.0, 1.0)
+		print("[SuspicionSystem] Debug. Sospecha: %.2f" % target)
+		_set_suspicion(target)
