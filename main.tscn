@@ -1,3 +1,29 @@
 [gd_scene format=3 uid="uid://c8pqmyogtmy47"]
 
-[node name="main" type="Node2D" unique_id=1163711609]
+[ext_resource type="PackedScene" uid="uid://vpl8m78bqypr" path="res://streamer/streamer.tscn" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://1dclcvtg42ds" path="res://interaction/cursor.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dcnyuwdtxd527" path="res://ui/hud.tscn" id="3_lquwl"]
+
+[node name="Main" type="Node2D" unique_id=1163711609]
+
+[node name="World" type="Node2D" parent="." unique_id=466761436]
+
+[node name="Background" type="Sprite2D" parent="World" unique_id=1863426834]
+
+[node name="DisasterSlots" type="Node2D" parent="World" unique_id=1883525458]
+
+[node name="Slot1" type="Marker2D" parent="World/DisasterSlots" unique_id=2015957544]
+
+[node name="Slot2" type="Marker2D" parent="World/DisasterSlots" unique_id=1150801156]
+
+[node name="Slot3" type="Marker2D" parent="World/DisasterSlots" unique_id=1962958607]
+
+[node name="Slot4" type="Marker2D" parent="World/DisasterSlots" unique_id=2070310927]
+
+[node name="Streamer" parent="World" unique_id=1335025303 instance=ExtResource("1_h2yge")]
+
+[node name="InteractionLayer" type="Node2D" parent="World" unique_id=1935478923]
+
+[node name="Cursor" parent="World/InteractionLayer" unique_id=1295067729 instance=ExtResource("2_1bvp3")]
+
+[node name="HUD" parent="." unique_id=214913986 instance=ExtResource("3_lquwl")]
