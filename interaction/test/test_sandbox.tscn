@@ -16,6 +16,7 @@ offset_left = 300.0
 offset_top = 300.0
 offset_right = 500.0
 offset_bottom = 500.0
+mouse_filter = 1
 color = Color(0.11561445, 0.13993815, 0.61691904, 1)
 
 [node name="Clickable" type="Area2D" parent="DummyDisaster1" unique_id=1681959273]
@@ -35,6 +36,7 @@ offset_left = 30.0
 offset_top = 300.0
 offset_right = 230.0
 offset_bottom = 500.0
+mouse_filter = 1
 color = Color(0.26987356, 0.24192622, 0, 1)
 
 [node name="Clickable" type="Area2D" parent="DummyDisaster2" unique_id=1955408833]
@@ -56,6 +58,7 @@ offset_left = 300.0
 offset_top = 300.0
 offset_right = 500.0
 offset_bottom = 500.0
+mouse_filter = 1
 color = Color(0.11561445, 0.13993815, 0.61691904, 1)
 
 [node name="Clickable" type="Area2D" parent="DummyDisaster3" unique_id=244931497]
@@ -75,6 +78,7 @@ offset_left = 30.0
 offset_top = 300.0
 offset_right = 230.0
 offset_bottom = 500.0
+mouse_filter = 1
 color = Color(0.26987356, 0.24192622, 0, 1)
 
 [node name="Clickable" type="Area2D" parent="DummyDisaster4" unique_id=562506107]
