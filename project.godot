@@ -14,6 +14,12 @@ config/name="JAMSTREAM"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*uid://bjvghxju8npnn"
+GameManager="*uid://uhaxico2vjxx"
+AudioManager="*uid://18kryb1dqyld"
+
 [display]
 
 window/size/viewport_width=960
