@@ -39,7 +39,6 @@ texture = ExtResource("2_5vw27")
 [node name="Llavero" parent="World/Disasters" unique_id=2090562273 instance=ExtResource("8_ycdy4")]
 
 [node name="Streamer" parent="World" unique_id=1335025303 instance=ExtResource("1_h2yge")]
-position = Vector2(493, 439)
 
 [node name="InteractionLayer" type="Node2D" parent="World" unique_id=1935478923]
 

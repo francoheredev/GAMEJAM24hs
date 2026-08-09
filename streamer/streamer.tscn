@@ -1,20 +1,87 @@
 [gd_scene format=3 uid="uid://vpl8m78bqypr"]
 
 [ext_resource type="Script" uid="uid://j3ysygqcefu0" path="res://streamer/streamer.gd" id="1_nnohi"]
+[ext_resource type="Texture2D" uid="uid://48ljx2ij5o4v" path="res://assets/art/amague.png" id="2_lp78u"]
+[ext_resource type="Texture2D" uid="uid://bln1bj3eaakbk" path="res://assets/art/atras.png" id="3_oi7wi"]
+[ext_resource type="Texture2D" uid="uid://g8ungipy1cas" path="res://assets/art/idle1.png" id="4_k1aqv"]
+[ext_resource type="Texture2D" uid="uid://55j732hwk6t0" path="res://assets/art/idle2.png" id="5_w7sfa"]
+[ext_resource type="Texture2D" uid="uid://hgpj37i312p2" path="res://assets/art/idle3.png" id="6_1dyh3"]
+[ext_resource type="Texture2D" uid="uid://b1y2xb1lmfk2h" path="res://assets/art/idle4.png" id="7_khmux"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3bxx"]
+atlas = ExtResource("2_lp78u")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqpfa"]
+atlas = ExtResource("3_oi7wi")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m6nr"]
+atlas = ExtResource("4_k1aqv")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4582"]
+atlas = ExtResource("5_w7sfa")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70pfj"]
+atlas = ExtResource("6_1dyh3")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06fir"]
+atlas = ExtResource("7_khmux")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j8elp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3bxx")
+}],
+"loop": 0,
+"name": &"amague",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqpfa")
+}],
+"loop": 0,
+"name": &"darse_vuelta",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m6nr")
+}],
+"loop": 1,
+"name": &"idle_1",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4582")
+}],
+"loop": 1,
+"name": &"idle_2",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70pfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06fir")
+}],
+"loop": 1,
+"name": &"idle_3",
+"speed": 3.0
+}]
 
 [node name="Streamer" type="Node2D" unique_id=1335025303]
 script = ExtResource("1_nnohi")
 
-[node name="Visual" type="ColorRect" parent="." unique_id=2081300345]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -100.0
-offset_right = 75.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 1, 1)
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=1667847700]
+position = Vector2(480, 270)
+sprite_frames = SubResource("SpriteFrames_j8elp")
+animation = &"amague"
