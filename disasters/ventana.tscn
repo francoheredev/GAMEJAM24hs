@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://ccmoq15524x6r"]
+
+[ext_resource type="PackedScene" uid="uid://bg6mv65i7sdfh" path="res://disasters/falling_object.tscn" id="1_wn5ea"]
+[ext_resource type="Texture2D" uid="uid://baeefng4156p3" path="res://assets/art/ventana.png" id="2_uyfm6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv23y"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfm0g"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(960, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv6w4"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(960, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auo6m"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(1920, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2yrn"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(2880, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h01sb"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(3840, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xds4b"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(4800, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1fy1"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(5760, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxhtu"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(6720, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wswd1"]
+atlas = ExtResource("2_uyfm6")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghl1b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv23y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfm0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfm0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv23y")
+}],
+"loop": 1,
+"name": &"alerta",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv6w4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auo6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2yrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h01sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xds4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1fy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxhtu")
+}],
+"loop": 0,
+"name": &"caida",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wswd1")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ap6q3"]
+size = Vector2(150, 70)
+
+[node name="Ventana" unique_id=1287823665 instance=ExtResource("1_wn5ea")]
+
+[node name="Visual" parent="." index="0" unique_id=1122243565]
+sprite_frames = SubResource("SpriteFrames_ghl1b")
+frame_progress = 0.75275147
+
+[node name="Clickable" parent="." index="1" unique_id=1817452215]
+position = Vector2(343, 164)
+
+[node name="CollisionShape2D" parent="Clickable" index="0" unique_id=1142104811]
+position = Vector2(-3, 3)
+shape = SubResource("RectangleShape2D_ap6q3")

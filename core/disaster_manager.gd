@@ -1,87 +1,69 @@
 class_name DisasterManager
 extends Node
-## Decide qué desastre aparece, cuándo y en qué slot.
+## Elige qué objeto del escenario sufre un desastre y cuándo.
 
-## Nodo que contiene los Marker2D de posiciones.
-@export var slots_container: Node2D
-## Escenas de desastre que puede spawnear.
-@export var disaster_scenes: Array[PackedScene] = []
-## Segundos entre spawns al empezar la partida.
+## Nodo que contiene los objetos con desastre.
+@export var disasters_container: Node2D
+
+## Segundos entre desastres al empezar la partida.
 @export var start_interval: float = 6.0
-## Segundos entre spawns cuando la dificultad llegó al máximo.
+## Segundos entre desastres al máximo de dificultad.
 @export var min_interval: float = 2.5
-## Cuántos segundos de partida tarda en llegar al máximo de dificultad.
+## Cuántos segundos tarda en llegar al máximo de dificultad.
 @export var ramp_duration: float = 90.0
 ## Desastres simultáneos permitidos al empezar.
 @export var start_max_concurrent: int = 1
 ## Desastres simultáneos permitidos al máximo de dificultad.
 @export var max_concurrent_cap: int = 3
 
-var _slots: Array[Marker2D] = []
+var _disasters: Array[Disaster] = []
 var _elapsed: float = 0.0
 var _spawn_timer: float = 0.0
 
+
 func _ready() -> void:
-	if slots_container == null:
-		push_error("[DisasterManager] Falta asignar slots_container.")
+	if disasters_container == null:
+		push_error("[DisasterManager] Falta asignar disasters_container.")
 		return
 
-	for child in slots_container.get_children():
-		if child is Marker2D:
-			_slots.append(child)
+	for child in disasters_container.get_children():
+		if child is Disaster:
+			_disasters.append(child)
 
-	print("[DisasterManager] Slots encontrados: ", _slots.size())
+	print("[DisasterManager] Desastres en escena: ", _disasters.size())
 	EventBus.game_started.connect(_on_game_started)
 	EventBus.game_over.connect(_on_game_over)
 
 
-## Instancia un desastre al azar en un slot libre. Devuelve null si no hay lugar.
-func spawn_disaster() -> Disaster:
+## Activa un objeto disponible al azar.
+func trigger_disaster() -> Disaster:
 	if not GameManager.is_playing():
 		return null
 
-	if disaster_scenes.is_empty():
-		push_warning("[DisasterManager] No hay escenas de desastre asignadas.")
+	var candidates: Array[Disaster] = []
+	for disaster in _disasters:
+		if disaster.can_activate():
+			candidates.append(disaster)
+
+	if candidates.is_empty():
+		print("[DisasterManager] No hay objetos disponibles.")
 		return null
 
-	var slot := _get_free_slot()
-	if slot == null:
-		print("[DisasterManager] Todos los slots ocupados.")
-		return null
-
-	var scene: PackedScene = disaster_scenes.pick_random()
-	var disaster: Disaster = scene.instantiate()
-
-	slot.add_child(disaster)
-	disaster.activate()
-	EventBus.disaster_spawned.emit(disaster)
-
-	return disaster
+	var chosen: Disaster = candidates.pick_random()
+	chosen.activate()
+	EventBus.disaster_spawned.emit(chosen)
+	return chosen
 
 
-## Un slot está libre si no tiene hijos.
-func _get_free_slot() -> Marker2D:
-	var free_slots: Array[Marker2D] = []
-	for slot in _slots:
-		if slot.get_child_count() == 0:
-			free_slots.append(slot)
-
-	if free_slots.is_empty():
-		return null
-	return free_slots.pick_random()
-
-
-## Devuelve todos los desastres activos en escena.
 func get_active_disasters() -> Array[Disaster]:
 	var active: Array[Disaster] = []
-	for slot in _slots:
-		for child in slot.get_children():
-			if child is Disaster and child.is_active:
-				active.append(child)
+	for disaster in _disasters:
+		if disaster.is_active:
+			active.append(disaster)
 	return active
 
 
-## Resuelve el desastre más viejo (el que está más cerca de fallar).
+## Resuelve el desastre más cerca de fallar.
 func resolve_oldest_disaster() -> void:
 	var active := get_active_disasters()
 	if active.is_empty():
@@ -96,30 +78,33 @@ func resolve_oldest_disaster() -> void:
 	oldest.resolve()
 
 
-## Borra todos los desastres de la escena, sin emitir señales.
-func clear_all() -> void:
-	for slot in _slots:
-		for child in slot.get_children():
-			child.queue_free()
-	print("[DisasterManager] Escena limpiada.")
-
-func _on_game_started() -> void:
-	clear_all()
-	_elapsed = 0.0
-	_spawn_timer = get_current_interval()
-
-func _on_game_over(_score: int) -> void:
-	freeze_all()
+## Devuelve todos los objetos a su estado inicial.
+func reset_all() -> void:
+	for disaster in _disasters:
+		disaster.reset()
+	print("[DisasterManager] Objetos reiniciados.")
 
 
-## Congela los desastres que quedaron en pantalla, sin borrarlos.
-## Apagar _process detiene el timer interno de la clase base Disaster.
+## Congela los desastres en curso sin resolverlos.
 func freeze_all() -> void:
 	var frozen := 0
 	for disaster in get_active_disasters():
 		disaster.set_process(false)
 		frozen += 1
 	print("[DisasterManager] Desastres congelados: ", frozen)
+
+
+func _on_game_started() -> void:
+	for disaster in _disasters:
+		disaster.set_process(true)
+	reset_all()
+	_elapsed = 0.0
+	_spawn_timer = get_current_interval()
+
+
+func _on_game_over(_score: int) -> void:
+	freeze_all()
+
 
 func _process(delta: float) -> void:
 	if not GameManager.is_playing():
@@ -131,7 +116,7 @@ func _process(delta: float) -> void:
 	if _spawn_timer <= 0.0:
 		_spawn_timer = get_current_interval()
 		if get_active_disasters().size() < get_current_max_concurrent():
-			spawn_disaster()
+			trigger_disaster()
 
 
 ## 0.0 al empezar, 1.0 cuando la dificultad llegó al techo.
@@ -148,9 +133,10 @@ func get_current_interval() -> float:
 func get_current_max_concurrent() -> int:
 	return int(round(lerpf(start_max_concurrent, max_concurrent_cap, get_difficulty())))
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_spawn_disaster"):
-		spawn_disaster()
+		trigger_disaster()
 	elif event.is_action_pressed("debug_resolve_disaster"):
 		resolve_oldest_disaster()
 	elif event.is_action_pressed("debug_reset"):

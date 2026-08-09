@@ -1,24 +1,29 @@
 class_name Disaster
 extends Node2D
-## Clase base de todos los desastres. Cada desastre concreto hereda de acá
-## y sobrescribe SOLO los tres métodos _on_*. No toquen activate/resolve/fail.
+## Objeto del escenario que puede sufrir un desastre.
+## Vive permanentemente en main.tscn, no se instancia ni se libera.
 
 signal resolved
 signal failed
 
-## Segundos que tiene el jugador para arreglarlo antes de que falle.
 @export var time_limit: float = 12.0
-## Cuánta sospecha suma si falla (0.0 a 1.0). Con 0.34, tres fallos = game over.
 @export var suspicion_on_fail: float = 0.34
-## Nombre legible, para debug y para el HUD.
 @export var display_name: String = "Desastre"
 
 var is_active: bool = false
+## Si ya se rompió, no se puede volver a activar en esta partida.
+var is_broken: bool = false
+
 var _time_left: float = 0.0
 
 
+## Puede activarse si no está corriendo ni roto.
+func can_activate() -> bool:
+	return not is_active and not is_broken
+
+
 func activate() -> void:
-	if is_active:
+	if not can_activate():
 		return
 	is_active = true
 	_time_left = maxf(time_limit, 0.01)
@@ -38,12 +43,20 @@ func fail() -> void:
 	if not is_active:
 		return
 	is_active = false
+	is_broken = true
 	_on_fail()
 	failed.emit()
 	EventBus.disaster_failed.emit(self)
 
 
-## Devuelve 0.0 (recién empezó) a 1.0 (a punto de fallar). Útil para el HUD.
+## Vuelve al estado inicial. Lo llama el DisasterManager al empezar partida.
+func reset() -> void:
+	is_active = false
+	is_broken = false
+	_time_left = 0.0
+	_on_reset()
+
+
 func get_progress() -> float:
 	if time_limit <= 0.0:
 		return 1.0
@@ -60,14 +73,14 @@ func _process(delta: float) -> void:
 
 # --- Sobrescribir en cada desastre concreto ---
 
-## Arranca la animación, el sonido, lo que sea. El gato empieza a caminar.
 func _on_activate() -> void:
 	pass
 
-## El jugador lo arregló. Animación de alivio, el gato baja del estante.
 func _on_resolve() -> void:
 	pass
 
-## Se acabó el tiempo. El jarrón se rompe, el tostador explota.
 func _on_fail() -> void:
+	pass
+
+func _on_reset() -> void:
 	pass
