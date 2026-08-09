@@ -3,17 +3,21 @@
 [ext_resource type="Script" uid="uid://dvkbhtqkgc0s1" path="res://main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://vpl8m78bqypr" path="res://streamer/streamer.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://1dclcvtg42ds" path="res://interaction/cursor.tscn" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://tpdruhmqrb5l" path="res://assets/art/fondo.png" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://bryu8qkm7axkb" path="res://core/disaster_manager.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dcnyuwdtxd527" path="res://ui/hud.tscn" id="3_lquwl"]
-[ext_resource type="PackedScene" uid="uid://0f00w5kmjxdr" path="res://disasters/test/debug_disaster.tscn" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://bopserk65r2xq" path="res://core/suspicion_system.gd" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bg6mv65i7sdfh" path="res://disasters/falling_object.tscn" id="7_kek77"]
 
 [node name="Main" type="Node2D" unique_id=1163711609]
 script = ExtResource("1_272bh")
 
 [node name="World" type="Node2D" parent="." unique_id=466761436]
 
-[node name="Background" type="Sprite2D" parent="World" unique_id=1863426834]
+[node name="Background" type="TextureRect" parent="World" unique_id=375916020]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_5vw27")
 
 [node name="DisasterSlots" type="Node2D" parent="World" unique_id=1883525458]
 
@@ -39,7 +43,7 @@ position = Vector2(493, 439)
 [node name="DisasterManager" type="Node" parent="World" unique_id=1341616187 node_paths=PackedStringArray("slots_container")]
 script = ExtResource("3_1bvp3")
 slots_container = NodePath("../DisasterSlots")
-disaster_scenes = Array[PackedScene]([ExtResource("4_lquwl")])
+disaster_scenes = Array[PackedScene]([ExtResource("7_kek77")])
 
 [node name="SuspicionSystem" type="Node" parent="World" unique_id=876637704]
 script = ExtResource("5_7mycd")

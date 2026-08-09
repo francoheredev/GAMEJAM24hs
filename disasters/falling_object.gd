@@ -17,12 +17,14 @@ var _wobble_tween: Tween
 
 
 func _ready() -> void:
-	super._ready()
 	var clickable := get_node_or_null("Clickable")
-	if clickable != null:
-		clickable.hold_duration = hold_duration
-		clickable.hint = interaction_hint
+	if clickable == null:
+		return
 
+	clickable.hold_duration = hold_duration
+	clickable.hint = interaction_hint
+	clickable.clicked.connect(resolve)
+	clickable.hold_completed.connect(resolve)
 
 func _on_activate() -> void:
 	_in_danger = false

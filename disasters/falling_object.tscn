@@ -1,3 +1,32 @@
 [gd_scene format=3 uid="uid://bg6mv65i7sdfh"]
 
+[ext_resource type="Script" uid="uid://bcfq0o8dmv254" path="res://disasters/falling_object.gd" id="1_ukoa0"]
+[ext_resource type="Script" uid="uid://c70r3anguteun" path="res://interaction/clickable.gd" id="2_uuc5s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgjsq"]
+size = Vector2(60, 60)
+
 [node name="FallingObject" type="Node2D" unique_id=1287823665]
+script = ExtResource("1_ukoa0")
+display_name = "Objeto por caerse"
+
+[node name="Visual" type="ColorRect" parent="." unique_id=1420276742]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 30)
+mouse_filter = 2
+
+[node name="Clickable" type="Area2D" parent="." unique_id=1817452215]
+script = ExtResource("2_uuc5s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clickable" unique_id=1142104811]
+shape = SubResource("RectangleShape2D_dgjsq")
