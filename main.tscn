@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c8pqmyogtmy47"]
 
+[ext_resource type="Script" uid="uid://dvkbhtqkgc0s1" path="res://main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://vpl8m78bqypr" path="res://streamer/streamer.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://1dclcvtg42ds" path="res://interaction/cursor.tscn" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://bryu8qkm7axkb" path="res://core/disaster_manager.gd" id="3_1bvp3"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bopserk65r2xq" path="res://core/suspicion_system.gd" id="5_7mycd"]
 
 [node name="Main" type="Node2D" unique_id=1163711609]
+script = ExtResource("1_272bh")
 
 [node name="World" type="Node2D" parent="." unique_id=466761436]
 

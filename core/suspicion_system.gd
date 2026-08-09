@@ -18,7 +18,7 @@ var is_running: bool = true
 func _ready() -> void:
 	EventBus.disaster_failed.connect(_on_disaster_failed)
 	EventBus.disaster_resolved.connect(_on_disaster_resolved)
-
+	EventBus.game_started.connect(reset)
 
 func _process(delta: float) -> void:
 	if not is_running or suspicion <= 0.0:
@@ -57,9 +57,9 @@ func reset() -> void:
 func _on_disaster_failed(disaster) -> void:
 	if not is_running:
 		return
-	_set_suspicion(suspicion + disaster.suspicion_on_fail)
-	print("[SuspicionSystem] Falló un desastre. Sospecha: %.2f" % suspicion)
-
+	var target := clampf(suspicion + disaster.suspicion_on_fail, 0.0, 1.0)
+	print("[SuspicionSystem] Falló un desastre. Sospecha: %.2f" % target)
+	_set_suspicion(target)
 
 func _on_disaster_resolved(_disaster) -> void:
 	if not is_running:
