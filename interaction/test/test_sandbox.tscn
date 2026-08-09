@@ -1,92 +1,33 @@
 [gd_scene format=3 uid="uid://dnuaux01emxvm"]
 
-[ext_resource type="Script" uid="uid://bk8iapxlg7wwd" path="res://interaction/test/dummy_disaster.gd" id="1_n2ywd"]
-[ext_resource type="Script" uid="uid://c70r3anguteun" path="res://interaction/clickable.gd" id="2_wdgho"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v320h"]
-size = Vector2(201, 201)
+[ext_resource type="Script" uid="uid://djdjdgn707cyj" path="res://interaction/test/test_sandbox.gd" id="1_wdgho"]
+[ext_resource type="PackedScene" uid="uid://vrbj5wvyuvaw" path="res://interaction/test/dummy_disaster.tscn" id="2_n2ywd"]
+[ext_resource type="PackedScene" uid="uid://1dclcvtg42ds" path="res://interaction/cursor.tscn" id="3_dltoj"]
+[ext_resource type="Script" uid="uid://buvp1y64tywm3" path="res://interaction/cursor.gd" id="4_elt51"]
 
 [node name="TestSandbox" type="Node2D" unique_id=699915875]
+script = ExtResource("1_wdgho")
 
-[node name="DummyDisaster1" type="Node2D" parent="." unique_id=641022930]
-script = ExtResource("1_n2ywd")
+[node name="DummyDisaster" parent="." unique_id=203602285 instance=ExtResource("2_n2ywd")]
+position = Vector2(257, 157)
 
-[node name="Clickable" type="Area2D" parent="DummyDisaster1" unique_id=1681959273]
-position = Vector2(300, 300)
-script = ExtResource("2_wdgho")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyDisaster1/Clickable" unique_id=355760624]
-position = Vector2(100.5, 100.5)
-shape = SubResource("RectangleShape2D_v320h")
-
-[node name="Visual" type="ColorRect" parent="DummyDisaster1" unique_id=1656887619]
-offset_left = 300.0
-offset_top = 300.0
-offset_right = 500.0
-offset_bottom = 500.0
-mouse_filter = 1
-color = Color(0.11561445, 0.13993815, 0.61691904, 1)
-
-[node name="DummyDisaster2" type="Node2D" parent="." unique_id=1019685377]
-position = Vector2(0, -300)
-script = ExtResource("1_n2ywd")
-
-[node name="Clickable" type="Area2D" parent="DummyDisaster2" unique_id=1955408833]
-position = Vector2(30, 300)
-script = ExtResource("2_wdgho")
+[node name="Clickable" parent="DummyDisaster" index="0" unique_id=1092033847]
 hold_duration = 2.0
-hint = "Mantener para resolver"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyDisaster2/Clickable" unique_id=464065518]
-position = Vector2(100.5, 100.5)
-shape = SubResource("RectangleShape2D_v320h")
+[node name="DummyDisaster2" parent="." unique_id=1859153025 instance=ExtResource("2_n2ywd")]
+position = Vector2(679, 163)
 
-[node name="Visual" type="ColorRect" parent="DummyDisaster2" unique_id=46641110]
-offset_left = 30.0
-offset_top = 300.0
-offset_right = 230.0
-offset_bottom = 500.0
-mouse_filter = 1
-color = Color(0.26987356, 0.24192622, 0, 1)
+[node name="DummyDisaster3" parent="." unique_id=1521616585 instance=ExtResource("2_n2ywd")]
+position = Vector2(255, 413)
 
-[node name="DummyDisaster3" type="Node2D" parent="." unique_id=296503297]
-position = Vector2(0, -300)
-script = ExtResource("1_n2ywd")
-
-[node name="Clickable" type="Area2D" parent="DummyDisaster3" unique_id=244931497]
-position = Vector2(300, 300)
-script = ExtResource("2_wdgho")
-hint = "Resolver desastre 3"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyDisaster3/Clickable" unique_id=1845183625]
-position = Vector2(100.5, 100.5)
-shape = SubResource("RectangleShape2D_v320h")
-
-[node name="Visual" type="ColorRect" parent="DummyDisaster3" unique_id=1064938184]
-offset_left = 300.0
-offset_top = 300.0
-offset_right = 500.0
-offset_bottom = 500.0
-mouse_filter = 1
-color = Color(0.11561445, 0.13993815, 0.61691904, 1)
-
-[node name="DummyDisaster4" type="Node2D" parent="." unique_id=654677198]
-script = ExtResource("1_n2ywd")
-
-[node name="Clickable" type="Area2D" parent="DummyDisaster4" unique_id=562506107]
-position = Vector2(30, 300)
-script = ExtResource("2_wdgho")
+[node name="Clickable" parent="DummyDisaster3" index="0" unique_id=1092033847]
 hold_duration = 2.0
-hint = "Mantener para resolver 4"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyDisaster4/Clickable" unique_id=1180612450]
-position = Vector2(100.5, 100.5)
-shape = SubResource("RectangleShape2D_v320h")
+[node name="DummyDisaster4" parent="." unique_id=1566065776 instance=ExtResource("2_n2ywd")]
+position = Vector2(680, 416)
 
-[node name="Visual" type="ColorRect" parent="DummyDisaster4" unique_id=443874034]
-offset_left = 30.0
-offset_top = 300.0
-offset_right = 230.0
-offset_bottom = 500.0
-mouse_filter = 1
-color = Color(0.26987356, 0.24192622, 0, 1)
+[node name="Cursor" parent="." unique_id=1295067729 instance=ExtResource("3_dltoj")]
+script = ExtResource("4_elt51")
+
+[editable path="DummyDisaster"]
+[editable path="DummyDisaster3"]

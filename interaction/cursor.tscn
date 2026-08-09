@@ -1,3 +1,31 @@
 [gd_scene format=3 uid="uid://1dclcvtg42ds"]
 
+[ext_resource type="Script" uid="uid://buvp1y64tywm3" path="res://interaction/cursor.gd" id="1_h1edw"]
+
+[sub_resource type="Gradient" id="Gradient_mhcil"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jciuq"]
+gradient = SubResource("Gradient_mhcil")
+width = 40
+height = 40
+
 [node name="Cursor" type="Node2D" unique_id=1295067729]
+script = ExtResource("1_h1edw")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1912525112]
+
+[node name="Dot" type="ColorRect" parent="Sprite" unique_id=1473593496]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+mouse_filter = 2
+
+[node name="HoldRing" type="TextureProgressBar" parent="." unique_id=2066760851]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+fill_mode = 5
+texture_progress = SubResource("GradientTexture2D_jciuq")

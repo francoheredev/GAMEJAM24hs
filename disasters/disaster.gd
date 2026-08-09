@@ -14,30 +14,14 @@ var _time_left: float = 0.0
 
 
 func _ready() -> void:
-	print("DISASTER LISTO: ", name)
+	## Se conecta solo si hay un hijo llamado Clickable.
+	## Los desastres sin interacción (debug) funcionan igual.
+	var clickable := get_node_or_null("Clickable")
+	if clickable == null:
+		return
 
-	# Click normal
-	$Clickable.clicked.connect(_on_clickable_clicked)
-
-	# Hold completado
-	$Clickable.hold_completed.connect(_on_clickable_hold_completed)
-
-	activate()
-
-
-func _on_clickable_clicked() -> void:
-	print("SEÑAL CLICKED RECIBIDA POR DISASTER")
-	print("is_active = ", is_active)
-
-	resolve()
-
-
-func _on_clickable_hold_completed() -> void:
-	print("SEÑAL HOLD COMPLETED RECIBIDA POR DISASTER")
-	print("is_active = ", is_active)
-
-	resolve()
-
+	clickable.clicked.connect(resolve)
+	clickable.hold_completed.connect(resolve)
 
 func activate() -> void:
 	if is_active:

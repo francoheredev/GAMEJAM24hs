@@ -7,6 +7,7 @@ func _on_activate() -> void:
 
 func _on_resolve() -> void:
 	$Visual.modulate = Color.WHITE
+	print("RESUELTO: ", name, " | frame ", Engine.get_process_frames())
 
 
 func _on_fail() -> void:
